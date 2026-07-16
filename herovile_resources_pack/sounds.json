@@ -1,0 +1,17 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"eoa:herovile": {
+				"events": {
+					"step": {
+						"pitch": 1,
+						"sound": "mob.zombie.step",
+						"volume": 0.70
+					}
+				},
+				"pitch": [0.8, 1.2],
+				"volume": 1
+			}
+		}
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"format_version": 2,
+	"header": {
+		"name": "Herovile (B)",
+		"description": "Adds Herovile to Minecraft Bedrock by El Oso Arcade",
+		"uuid": "e1b91c39-8041-17c5-bc7f-f99317c2880c",
+		"version": [1, 0, 0],
+		"min_engine_version": [1, 16, 0]
+	},
+	"metadata": {
+		"authors": ["El Oso Arcade"],
+		"license": "CC BY-NC-ND 4.0 - Herovile MCBE Add-on",
+		"product_type": "addon",
+		"url": "https://github.com/elosoarcade/herovile"
+	},
+	"modules": [
+		{
+			"description": "Behavior",
+			"version": [1, 0, 0],
+			"uuid": "41fadcca-3f53-ec7d-c149-6b5df88bfdce",
+			"type": "data"
+		}
+	],
+	"dependencies": [
+		{
+			"uuid": "9e594d31-34d9-9078-5780-71486c0bccd4",
+			"version": [1, 0, 0]
+		}
+	]
+}

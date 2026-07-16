@@ -1,0 +1,110 @@
+{
+   "format_version":"1.21.0",
+   "minecraft:entity":{
+      "description":{
+         "identifier":"eoa:herovile",
+         "is_spawnable":true,
+         "is_summonable":true,
+         "is_experimental":false
+      },
+      "component_groups":{
+         "herovile_inmortal":{
+            "minecraft:damage_sensor":{
+               "triggers":[
+                  { "cause":"all", "deals_damage":false }
+               ]
+            }
+         },
+         "herovile_teleport":{
+            "minecraft:teleport":{
+               "random_teleports":true,
+               "max_random_teleport_time":30,
+               "random_teleport_cube":[16,16,16],
+               "target_distance":8,
+               "target_teleport_chance":0.05,
+               "light_teleport_chance":0.05
+            }
+         },
+         "herovile_passive":{
+            "minecraft:behavior.random_stroll":{ "priority":0, "speed_multiplier":0.8 },
+            "minecraft:behavior.look_at_player":{ "priority":1, "look_distance":8, "probability":0.02 },
+            "minecraft:behavior.random_look_around":{ "priority":2 }
+         },
+         "herovile_melee":{
+            "minecraft:attack":{
+               "damage":3,
+               "effect_name":"darkness",
+               "effect_duration":30,
+               "effect_amplifier":0
+            },
+            "minecraft:behavior.melee_attack":{ "priority":0, "speed_multiplier":1.2, "track_target":true },
+            "minecraft:behavior.nearest_attackable_target":{
+               "priority":1,
+               "must_see":true,
+               "entity_types":[
+                  { "filters":{ "test":"is_family", "subject":"other", "value":"player" }, "max_dist":16 }
+               ]
+            },
+            "minecraft:behavior.look_at_player":{ "priority":2, "look_distance":8, "probability":0.02 }
+         },
+         "herovile_ranged":{
+            "minecraft:behavior.sonic_boom":{
+               "priority":0,
+               "duration":2.5,
+               "attack_damage":3,
+               "attack_cooldown":8,
+               "knockback_horizontal_strength":3,
+               "knockback_vertical_strength":0.5,
+               "attack_range_horizontal":6,
+               "attack_range_vertical":6,
+               "attack_sound":"eoa.herovile.sonic_boom",
+               "charge_sound":"eoa.herovile.sonic_charge"
+            },
+            "minecraft:behavior.nearest_attackable_target":{
+               "priority":1,
+               "must_see":true,
+               "entity_types":[
+                  { "filters":{ "test":"is_family", "subject":"other", "value":"player" }, "max_dist":32 }
+               ]
+            },
+            "minecraft:behavior.look_at_player":{ "priority":2, "look_distance":8, "probability":0.02 }
+         }
+      },
+      "components":{
+         "minecraft:type_family":{ "family":["herovile","monster","mob"] },
+         "minecraft:collision_box":{ "width":0.6, "height":1.9 },
+         "minecraft:health":{ "value":20, "max":20 },
+         "minecraft:scale":{ "value":1.1 },
+         "minecraft:movement":{ "value":0.25 },
+         "minecraft:movement.basic":{},
+         "minecraft:navigation.walk":{ "can_walk":true },
+         "minecraft:jump.static":{},
+         "minecraft:physics":{},
+         "minecraft:despawn":{
+            "filters":{
+               "all_of":[
+                  { "test":"distance_to_nearest_player", "operator":">", "value":32 },
+                  { "test":"inactivity_timer", "operator":">=", "value":30 }
+               ]
+            }
+         },
+         "minecraft:pushable":{ "is_pushable":true, "is_pushable_by_piston":true }
+      },
+      "events":{
+         "minecraft:entity_spawned":{
+            "sequence":[
+               {
+                  "add":{ "component_groups":["herovile_inmortal","herovile_teleport"] }
+               },
+               {
+                  "randomize":[
+                     { "weight":33, "add":{ "component_groups":["herovile_passive"] } },
+                     { "weight":33, "add":{ "component_groups":["herovile_melee"] } },
+                     { "weight":34, "add":{ "component_groups":["herovile_ranged"] } }
+                  ]
+               }
+            ]
+         }
+      }
+   }
+}
